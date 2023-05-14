@@ -1,4 +1,4 @@
 #![feature(int_roundings)]
 
-mod algos;
+mod sort;
 mod types;

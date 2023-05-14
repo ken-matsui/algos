@@ -22,7 +22,7 @@ pub fn radix_sort(arr: &mut Vec<Int>) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::algos::sort::is_sorted;
+    use crate::sort::is_sorted;
 
     #[test]
     fn test_radix_sort() {

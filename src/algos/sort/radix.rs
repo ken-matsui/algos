@@ -1,10 +1,6 @@
-#![feature(int_roundings)]
+use crate::types::Int;
 
-mod types;
-
-use types::Int;
-
-fn radix_sort(arr: &mut Vec<Int>) {
+pub fn radix_sort(arr: &mut Vec<Int>) {
     let max = arr.iter().max().unwrap();
     let num_digits = max.to_string().len() as u32;
 
@@ -23,8 +19,15 @@ fn radix_sort(arr: &mut Vec<Int>) {
     }
 }
 
-fn main() {
-    let mut arr = vec![170, 45, 75, 90, 802, 24, 2, 66];
-    radix_sort(&mut arr);
-    println!("{arr:?}");
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::algos::sort::is_sorted;
+
+    #[test]
+    fn test_radix_sort() {
+        let mut arr = vec![170, 45, 75, 90, 802, 24, 2, 66];
+        radix_sort(&mut arr);
+        assert!(is_sorted(arr));
+    }
 }

@@ -1,29 +1,19 @@
-use std::fmt::Display;
+#![feature(int_roundings)]
 
-use num::{Bounded, Integer, NumCast};
+mod types;
 
-fn radix_sort<I>(arr: &mut Vec<I>)
-where
-    I: Copy + Integer + Bounded + NumCast + Display,
-{
-    let mut max: I = Bounded::min_value();
-    for v in &mut *arr {
-        if max < *v {
-            max = *v;
-        }
-    }
+use types::Int;
 
+fn radix_sort(arr: &mut Vec<Int>) {
+    let max = arr.iter().max().unwrap();
     let num_digits = max.to_string().len() as u32;
-    let ten = I::from(10).unwrap();
+
     for i in 0..=num_digits {
-        let mut buckets: Vec<Vec<I>> = vec![vec![]; 10];
+        let mut buckets: Vec<Vec<Int>> = vec![vec![]; 10];
 
         for num in &mut *arr {
-            let power = I::from(10_u64.pow(i)).unwrap();
-            let floor = num.div_floor(&power);
-            let (_, digit) = floor.div_rem(&ten);
-            let index = I::to_usize(&digit).unwrap();
-            buckets[index].push(*num);
+            let digit = num.div_floor(10_u64.pow(i) as i32) % 10;
+            buckets[digit as usize].push(*num);
         }
 
         *arr = vec![];

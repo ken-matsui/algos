@@ -1,4 +1,4 @@
-mod radix;
+pub mod radix;
 
 #[cfg(test)]
 pub(crate) fn is_sorted<T>(data: Vec<T>) -> bool

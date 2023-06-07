@@ -1,8 +1,16 @@
 use crate::types::Int;
 
+fn count_digit(num: &Int) -> u32 {
+    if *num == 0 {
+        1
+    } else {
+        num.abs().ilog10() + 1
+    }
+}
+
 pub fn radix_sort(arr: &mut Vec<Int>) {
     let max = arr.iter().max().unwrap();
-    let num_digits = max.to_string().len() as u32;
+    let num_digits = count_digit(max);
 
     for i in 0..=num_digits {
         let mut buckets: Vec<Vec<Int>> = vec![vec![]; 10];
